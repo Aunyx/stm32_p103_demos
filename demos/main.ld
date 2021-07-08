@@ -19,13 +19,13 @@ SECTIONS
 	} >FLASH
 
 	/* Initialized data will initially be loaded in FLASH at the end of the .text section. */
-    .data  ALIGN(0x20000000): AT (_sidata)  
+    .data : AT (_sidata)  
     {
 		_sdata = .;
 		*(.data)		/* Initialized data */
 		_edata = .;
 	} >RAM
-
+	. = ALIGN(4);
 	.bss  :
 	 {
 		_sbss = .;
