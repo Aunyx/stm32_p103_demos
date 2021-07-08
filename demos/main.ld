@@ -26,12 +26,20 @@ SECTIONS
 		_edata = .;
 	} >RAM
 	. = ALIGN(4);
-	.bss  :
-	 {
-		_sbss = .;
-		*(.bss)         /* Zero-filled run time allocate data memory */
-		_ebss = .;
-	} >RAM
+	.bss :
+    {
+    /* This is used by the startup in order to initialize the .bss secion */
+    _sbss = .;         /* define a global symbol at bss start */
+    __bss_start__ = _sbss;
+    *(.bss)
+    *(.bss*)
+    *(COMMON)
+
+    . = ALIGN(4);
+    _ebss = .;         /* define a global symbol at bss end */
+    __bss_end__ = _ebss;
+    } >RAM
+
     
     _estack = ORIGIN(RAM) + LENGTH(RAM);
  }  
