@@ -18,14 +18,15 @@ SECTIONS
 	} >FLASH
 
 	/* Initialized data will initially be loaded in FLASH at the end of the .text section. */
-    .data : AT (_sidata) 
+    .data  ALIGN(0x2000): AT (_sidata)  
     {
 		_sdata = .;
 		*(.data)		/* Initialized data */
 		_edata = .;
 	} >RAM
 
-	.bss : {
+	.bss ALIGN(0x2000) :
+	 {
 		_sbss = .;
 		*(.bss)         /* Zero-filled run time allocate data memory */
 		_ebss = .;
